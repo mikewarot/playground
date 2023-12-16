@@ -1,6 +1,7 @@
 import networkx as nx
-from ipywidgets import interact, IntSlider
 import matplotlib.pyplot as plt
+import sys
+
 def generate_graph(nodecount):
     # Generate a random acyclic directed graph
     graph = nx.gnr_graph(nodecount, 0.3)
@@ -9,4 +10,10 @@ def generate_graph(nodecount):
     nx.draw(graph, with_labels=True)
     plt.show()
 
-interact(generate_graph, nodecount=IntSlider(min=1, max=20, step=1, value=10))
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python dag_cli.py <nodecount>")
+        sys.exit(1)
+
+    nodecount = int(sys.argv[1])
+    generate_graph(nodecount)
